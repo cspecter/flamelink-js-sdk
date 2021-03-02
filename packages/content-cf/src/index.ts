@@ -242,29 +242,29 @@ export const factory: FlamelinkFactory = (context) => {
         `${SCHEMAS_COLLECTION}/${schemaKey}`
       )
       const contentRef = firestoreService.collection(CONTENT_COLLECTION)
-      const docRef = contentRef.doc()
+      const docRef = entryId ? contentRef.doc(entryId) : contentRef.doc()
       const docId = docRef.id
 
       const payload =
         typeof data === 'object'
           ? {
-              ...defaultValues,
-              order: 0,
-              parentId: 0,
-              ...data,
-              _fl_meta_: {
-                createdBy: getCurrentUser(context),
-                createdDate: getTimestamp(context),
-                docId,
-                env: env || context.env,
-                fl_id: entryId || docId,
-                locale: locale || context.locale,
-                schema: schemaKey,
-                schemaType: get(schema, 'type', 'collection'),
-                schemaRef,
-              },
-              id: docId,
-            }
+            ...defaultValues,
+            order: 0,
+            parentId: 0,
+            ...data,
+            _fl_meta_: {
+              createdBy: getCurrentUser(context),
+              createdDate: getTimestamp(context),
+              docId,
+              env: env || context.env,
+              fl_id: entryId || docId,
+              locale: locale || context.locale,
+              schema: schemaKey,
+              schemaType: get(schema, 'type', 'collection'),
+              schemaRef,
+            },
+            id: docId,
+          }
           : data
 
       await docRef.set(payload)
@@ -300,12 +300,12 @@ export const factory: FlamelinkFactory = (context) => {
       const payload =
         typeof data === 'object'
           ? {
-              ...data,
-              '_fl_meta_.lastModifiedBy': getCurrentUser(context),
-              '_fl_meta_.lastModifiedDate': getTimestamp(context),
-              '_fl_meta_.fl_id': entryId,
-              id: entryId,
-            }
+            ...data,
+            '_fl_meta_.lastModifiedBy': getCurrentUser(context),
+            '_fl_meta_.lastModifiedDate': getTimestamp(context),
+            '_fl_meta_.fl_id': entryId,
+            id: entryId,
+          }
           : data
 
       const snapshot = await api

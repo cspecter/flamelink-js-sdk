@@ -68,11 +68,6 @@
     "ts-jest": "24.1.0",
     "typescript": "3.9.5"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run generate-readme && git add README.md && lint-staged"
-    }
-  },
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean",
@@ -104,6 +99,7 @@
   "contributors": [
     "JP Erasmus <jp@flamelink.io> (http://jperasmus.me)",
     "De Wet van der Merwe (https://github.com/dewetvdm)",
+    "Sinan Bolel (http://sinanbolel.com)",
     "dependabot[bot] (http://github.com/apps/dependabot)",
     "De Wet van der Merwe (flamelink.io)"
   ]
